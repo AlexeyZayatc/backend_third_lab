@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title> Пример JINJA2 </title>
+</head>
+
+<body>
+    {% import "macros.html" as macros %}
+    <p>
+        Привет,
+        {% if users[ind]['gender'] == "ж" %}
+        студентка
+        {% else %}
+        студент
+        {% endif %}
+        {{users[ind]['name']}}!
+    </p>
+    <p>
+        Ваша образовательная программа {{users[ind]['program']}}.
+    </p>
+    <p>
+        Вы изучаете дисциплины:<br>
+        {{macros.render_list(users[ind]['subjects'])}}
+    </p>
+</body>

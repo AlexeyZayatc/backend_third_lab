@@ -1,0 +1,43 @@
+{% macro make_list(name, words, indexes) %}
+{% set wrds = words.split(" ") %}
+<select name={{name}} multiple>
+    {% for word in wrds %}
+    {% if loop.index-1 in indexes %}
+    <option value={{loop.index-1}} selected>
+        {% else %}
+    <option value={{loop.index-1}}>
+        {% endif %}
+        {{word}}
+    </option>
+    {% endfor %}
+</select>
+{% endmacro %}
+
+{% macro render_table(list, firstRow, lastRow) %}
+<table border=1>
+    <thead>
+        {% for key in list[0].keys() %}
+        <td>{{key}}</td>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% if firstRow < 1 or lastRow>= list|length %}
+            {% for elem in list %}
+            <tr>
+                {% for key in elem %}
+                <td>{{elem[key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            {% else %}
+            {% for ind in range(firstRow,lastRow+1) %}
+            <tr>
+                {% for key in list[ind] %}
+                <td>{{list[ind][key]}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+    </tbody>
+</table>
+{% endmacro %}
